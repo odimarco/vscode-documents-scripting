@@ -1062,7 +1062,7 @@ async function ensurePath(fileOrFolder: string, allowSubDir = false, withBaseNam
         if(fileOrFolder) {
 
             // if there's a workspace, returned path must be a subfolder of rootPath
-            if(!vscode.workspace || fileOrFolder.startsWith(vscode.workspace.rootPath)) {
+            if(!vscode.workspace || fileOrFolder.toLowerCase().startsWith(vscode.workspace.rootPath.toLowerCase())) {
 
                 // check folder and get folder from file
                 getFolder(fileOrFolder).then((retpath) => {
@@ -1070,7 +1070,7 @@ async function ensurePath(fileOrFolder: string, allowSubDir = false, withBaseNam
                 }).catch((reason) => {
                     reject(reason);
                 });
-            
+
             } else {
                 reject(fileOrFolder + ' is not a subfolder of ' + vscode.workspace.rootPath);
             }
@@ -1097,9 +1097,9 @@ async function ensurePath(fileOrFolder: string, allowSubDir = false, withBaseNam
 
                 // input path must be absolute
                 if(input) {
-                        
+
                     // if there's a workspace, returned path must be subfolder of rootPath
-                    if(!vscode.workspace || input.toLowerCase().startsWith(vscode.workspace.rootPath)) {
+                    if(!vscode.workspace || input.toLowerCase().startsWith(vscode.workspace.rootPath.toLowerCase())) {
 
                         // check folder and get folder from file
                         getFolder(input, allowSubDir).then((retpath) => {
