@@ -430,7 +430,13 @@ function commandDownloadScriptnames(loginData: nodeDoc.LoginData, param: any) {
 function commandDownloadScriptParameters(loginData: nodeDoc.LoginData, param: any) {
     console.log('commandDownloadScriptParameters');
     nodeDoc.sdsSession(loginData, [], nodeDoc.getScriptParameters).then((value) => {
-        vscode.window.setStatusBarMessage('Script parameters downloaded');
+        if(1 < value.length) {
+            let scriptparams = value[1];
+            console.log('script parameters: ' + scriptparams);
+            vscode.window.setStatusBarMessage('Script parameters downloaded');
+        } else {
+            console.log('download script parameters failed: array.length: ' + value.length);
+        }
     }).catch((reason) => {
         vscode.window.showErrorMessage('download script parameters failed: ' + reason);
     });
